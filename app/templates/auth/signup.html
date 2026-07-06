@@ -6,93 +6,67 @@
 
     <div class="row justify-content-center">
 
-        <div class="col-md-7">
+        <div class="col-md-6">
 
             <div class="card shadow-lg border-0">
 
                 <div class="card-body p-5">
 
-                    <h2 class="text-center text-success">
-                        Create Account
+                    <h2 class="text-center text-success mb-3">
+                        Create Your Account
                     </h2>
 
                     <p class="text-center text-muted mb-4">
                         Join AI Room Availability Platform
                     </p>
 
-                    <form>
+                    <form method="POST" action="{{ url_for('main.signup') }}">
 
                         <div class="mb-3">
-
-                            <label>Name</label>
-
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="Full Name">
-
+                            <label class="form-label">Name</label>
+                            <input type="text" name="name" class="form-control" required>
                         </div>
 
                         <div class="mb-3">
-
-                            <label>Email</label>
-
-                            <input type="email"
-                                   class="form-control"
-                                   placeholder="Email Address">
-
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" required>
                         </div>
 
                         <div class="mb-3">
-
-                            <label>Phone</label>
-
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="Phone Number">
-
+                            <label class="form-label">Phone</label>
+                            <input type="text" name="phone" class="form-control" required>
                         </div>
 
                         <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
 
-                            <label>Password</label>
-
-                            <input type="password"
-                                   class="form-control"
-                                   placeholder="Password">
-
+                        <div class="mb-3">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" name="confirm_password" class="form-control" required>
                         </div>
 
                         <div class="mb-4">
+                            <label class="form-label">Register As</label>
 
-                            <label>Confirm Password</label>
-
-                            <input type="password"
-                                   class="form-control"
-                                   placeholder="Confirm Password">
-
+                            <select name="role" class="form-select">
+                                <option value="student">Student / Employee</option>
+                                <option value="owner">Room Owner</option>
+                            </select>
                         </div>
 
-                        <a href="{{ url_for('main.select_role') }}"
-                           class="btn btn-success w-100">
-
-                            Continue
-
-                        </a>
+                        <button type="submit" class="btn btn-success w-100">
+                            Register
+                        </button>
 
                     </form>
 
                     <hr>
 
                     <p class="text-center">
-
                         Already have an account?
-
-                        <a href="{{ url_for('main.login') }}">
-
-                            Login
-
-                        </a>
-
+                        <a href="{{ url_for('main.login') }}">Login</a>
                     </p>
 
                 </div>
