@@ -1,0 +1,1 @@
+console.log("AI Room Availability Platform Loaded");
