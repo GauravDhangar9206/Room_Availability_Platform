@@ -1,0 +1,78 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-body p-5">
+
+                    <h2 class="text-center text-primary">
+
+                        Select Your Role
+
+                    </h2>
+
+                    <p class="text-center text-muted mb-4">
+
+                        Choose how you want to use our platform
+
+                    </p>
+
+                    <form>
+
+                        <div class="form-check mb-3">
+
+                            <input class="form-check-input"
+                                   type="radio"
+                                   name="role"
+                                   value="student"
+                                   checked>
+
+                            <label class="form-check-label">
+
+                                Student / Employee
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check mb-4">
+
+                            <input class="form-check-input"
+                                   type="radio"
+                                   name="role"
+                                   value="owner">
+
+                            <label class="form-check-label">
+
+                                Room Owner
+
+                            </label>
+
+                        </div>
+
+                        <button class="btn btn-primary w-100">
+
+                            Continue
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
