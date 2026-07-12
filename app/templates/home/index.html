@@ -1,88 +1,24 @@
-{% extends 'shared/base.html' %}
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
 
 {% block content %}
 
-<section class="hero">
+<div class="text-center mt-5">
 
-<div class="container text-center">
+    <h1>Welcome to Room Availability Platform</h1>
 
-<h1 class="display-4 fw-bold">
+    <p class="lead">
+        Find your perfect room quickly and easily.
+    </p>
 
-Find Your Perfect Room
-
-</h1>
-
-<p class="lead">
-
-AI Based Room Recommendation System
-
-</p>
-
-<a href="{{ url_for('main.signup') }}"
-class="btn btn-primary btn-lg">
-
-Get Started
-
-</a>
+    <a href="#"
+       class="btn btn-primary btn-lg">
+        Search Rooms
+    </a>
 
 </div>
-
-</section>
-
-<section class="container mt-5">
-
-<div class="row">
-
-<div class="col-md-4">
-
-<div class="card shadow">
-
-<div class="card-body text-center">
-
-<h3>Verified Rooms</h3>
-
-<p>Only trusted room owners.</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="card shadow">
-
-<div class="card-body text-center">
-
-<h3>AI Recommendation</h3>
-
-<p>Find rooms according to your needs.</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="card shadow">
-
-<div class="card-body text-center">
-
-<h3>Secure Booking</h3>
-
-<p>Safe and easy booking process.</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
 
 {% endblock %}
