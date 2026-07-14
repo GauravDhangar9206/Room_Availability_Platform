@@ -6,6 +6,7 @@ from app.models.user import User
 
 from app.routes.home import home_bp
 from app.routes.auth import auth_bp
+from app.routes.room import room_bp
 
 
 def create_app():
@@ -22,6 +23,7 @@ def create_app():
     # Register Blueprints
     app.register_blueprint(home_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(room_bp)
 
     # Flask-Login user loader
     @login_manager.user_loader
