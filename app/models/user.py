@@ -16,7 +16,7 @@ class User(UserMixin, db.Model):
 
     email = db.Column(db.String(120), unique=True, nullable=False)
 
-    phone = db.Column(db.String(15), unique=True)
+    phone = db.Column(db.String(15), unique=True, nullable=True)
 
     password_hash = db.Column(db.String(255), nullable=False)
 
@@ -36,7 +36,21 @@ class User(UserMixin, db.Model):
         default=datetime.utcnow
     )
 
+    # ----------------------------
+    # Relationships
+    # ----------------------------
+
+    rooms = db.relationship(
+        "Room",
+        back_populates="owner",
+        cascade="all, delete-orphan",
+        lazy=True
+    )
+
+    # ----------------------------
     # Password Methods
+    # ----------------------------
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
