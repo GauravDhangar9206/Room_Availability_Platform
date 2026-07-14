@@ -35,7 +35,10 @@ class Room(db.Model):
 
     available = db.Column(db.Boolean, default=True)
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
+    )
 
     owner_id = db.Column(
         db.Integer,
@@ -46,6 +49,14 @@ class Room(db.Model):
     owner = db.relationship(
         "User",
         back_populates="rooms"
+    )
+
+    # One Room -> Many Images
+    images = db.relationship(
+        "Image",
+        back_populates="room",
+        cascade="all, delete-orphan",
+        lazy=True
     )
 
     def __repr__(self):

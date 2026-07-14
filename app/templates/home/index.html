@@ -28,6 +28,26 @@ Home
 
                 <div class="card shadow h-100">
 
+                    <!-- Room Image -->
+
+                    {% if room.images and room.images|length > 0 %}
+
+                        <img
+                            src="{{ url_for('static', filename='uploads/room_images/' + room.images[0].filename) }}"
+                            class="card-img-top"
+                            style="height:220px; object-fit:cover;"
+                            alt="Room Image">
+
+                    {% else %}
+
+                        <img
+                            src="{{ url_for('static', filename='images/no-image.jpg') }}"
+                            class="card-img-top"
+                            style="height:220px; object-fit:cover;"
+                            alt="No Image">
+
+                    {% endif %}
+
                     <div class="card-body">
 
                         <h4>{{ room.title }}</h4>
@@ -56,10 +76,13 @@ Home
                             {{ room.area }}
                         </p>
 
-                      <a href="{{ url_for('room.room_detail', room_id=room.id) }}"
-   class="btn btn-primary">
-    View Details
-</a>
+                        <a
+                            href="{{ url_for('room.room_detail', room_id=room.id) }}"
+                            class="btn btn-primary">
+
+                            View Details
+
+                        </a>
 
                     </div>
 
@@ -71,11 +94,11 @@ Home
 
         {% else %}
 
-        <div class="text-center">
+            <div class="text-center">
 
-            <h3>No Rooms Available</h3>
+                <h3>No Rooms Available</h3>
 
-        </div>
+            </div>
 
         {% endif %}
 
