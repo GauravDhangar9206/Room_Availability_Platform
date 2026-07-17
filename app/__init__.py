@@ -8,6 +8,8 @@ from app.routes.home import home_bp
 from app.routes.auth import auth_bp
 from app.routes.room import room_bp
 from app.routes.search import search_bp
+from app.models.booking import Booking
+from app.routes.booking import booking_bp
 
 
 def create_app():
@@ -24,6 +26,7 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(room_bp)
     app.register_blueprint(search_bp)
+    app.register_blueprint(booking_bp)
     
 
     @login_manager.user_loader
