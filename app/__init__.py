@@ -8,7 +8,6 @@ from app.routes.home import home_bp
 from app.routes.auth import auth_bp
 from app.routes.room import room_bp
 from app.routes.search import search_bp
-from app.routes.student import student_bp
 
 
 def create_app():
@@ -25,7 +24,7 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(room_bp)
     app.register_blueprint(search_bp)
-    app.register_blueprint(student_bp)
+    
 
     @login_manager.user_loader
     def load_user(user_id):

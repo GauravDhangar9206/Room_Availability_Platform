@@ -6,95 +6,412 @@ Home
 
 {% block content %}
 
+<!-- ================= GUEST ================= -->
 
+{% if not current_user.is_authenticated %}
 
+<div class="text-center mb-5">
 
-    <div class="row">
+    <h1>Room Availability Platform</h1>
 
-        {% if rooms %}
+    <p class="lead">
+        Find your perfect room quickly and easily.
+    </p>
 
-            {% for room in rooms %}
+    <a href="{{ url_for('auth.login') }}"
+       class="btn btn-primary">
 
-            <div class="col-md-4 mb-4">
+        Login
 
-                <div class="card shadow h-100">
+    </a>
 
-                    <!-- Room Image -->
+    <a href="{{ url_for('auth.signup') }}"
+       class="btn btn-success">
 
-                    {% if room.images and room.images|length > 0 %}
+        Register
 
-                        <img
-                            src="{{ url_for('static', filename='uploads/room_images/' + room.images[0].filename) }}"
-                            class="card-img-top"
-                            style="height:220px; object-fit:cover;"
-                            alt="Room Image">
+    </a>
 
-                    {% else %}
+</div>
 
-                        <img
-                            src="{{ url_for('static', filename='images/no-image.jpg') }}"
-                            class="card-img-top"
-                            style="height:220px; object-fit:cover;"
-                            alt="No Image">
+<!-- ================= STUDENT ================= -->
 
-                    {% endif %}
+{% elif current_user.role == "student" %}
 
-                    <div class="card-body">
+<div class="mb-4">
 
-                        <h4>{{ room.title }}</h4>
+    <h2>
 
-                        <p>{{ room.description[:100] }}...</p>
+        Welcome,
+        {{ current_user.fullname }}
 
-                        <hr>
+    </h2>
 
-                        <p>
-                            <strong>Type:</strong>
-                            {{ room.room_type }}
-                        </p>
+    <p class="text-muted">
 
-                        <p>
-                            <strong>Rent:</strong>
-                            ₹{{ room.rent }}
-                        </p>
+        Search rooms, save favourites and book your perfect room.
 
-                        <p>
-                            <strong>City:</strong>
-                            {{ room.city }}
-                        </p>
+    </p>
 
-                        <p>
-                            <strong>Area:</strong>
-                            {{ room.area }}
-                        </p>
+</div>
 
-                        <a
-                            href="{{ url_for('room.room_detail', room_id=room.id) }}"
-                            class="btn btn-primary">
+<div class="row mb-4">
 
-                            View Details
+    <div class="col-md-3">
 
-                        </a>
+        <div class="card text-center shadow">
 
-                    </div>
+            <div class="card-body">
 
-                </div>
+                <h4>{{ rooms|length }}</h4>
+
+                <p>Available Rooms</p>
 
             </div>
 
-            {% endfor %}
+        </div>
 
-        {% else %}
+    </div>
 
-            <div class="text-center">
+    <div class="col-md-3">
 
-                <h3>No Rooms Available</h3>
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h4>0</h4>
+
+                <p>Favourite Rooms</p>
 
             </div>
 
-        {% endif %}
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h4>0</h4>
+
+                <p>Bookings</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h4>0</h4>
+
+                <p>Messages</p>
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
+
+<div class="row">
+
+{% for room in rooms %}
+
+<div class="col-md-4 mb-4">
+
+<div class="card shadow h-100">
+
+{% if room.images %}
+
+<img
+src="{{ url_for('static', filename='uploads/room_images/' + room.images[0].filename) }}"
+class="card-img-top"
+style="height:220px;object-fit:cover;">
+
+{% else %}
+
+<img
+src="{{ url_for('static', filename='images/no-image.jpg') }}"
+class="card-img-top"
+style="height:220px;object-fit:cover;">
+
+{% endif %}
+
+<div class="card-body">
+
+<h4>{{ room.title }}</h4>
+
+<p>{{ room.description[:80] }}...</p>
+
+<p><strong>Type :</strong> {{ room.room_type }}</p>
+
+<p><strong>Rent :</strong> ₹{{ room.rent }}</p>
+
+<p><strong>City :</strong> {{ room.city }}</p>
+
+<p><strong>Area :</strong> {{ room.area }}</p>
+
+<a
+href="{{ url_for('room.room_detail', room_id=room.id) }}"
+class="btn btn-primary">
+
+View Details
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<!-- ================= OWNER ================= -->
+
+{% elif current_user.role == "owner" %}
+
+<div class="mb-4">
+
+<h2>
+
+Welcome,
+{{ current_user.fullname }}
+
+</h2>
+
+<p class="text-muted">
+
+Manage your rooms and booking requests.
+
+</p>
+
+</div>
+
+<div class="row mb-4">
+
+<div class="col-md-3">
+
+<div class="card shadow text-center">
+
+<div class="card-body">
+
+<h3>{{ current_user.rooms|length }}</h3>
+
+<p>My Rooms</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow text-center">
+
+<div class="card-body">
+
+<h3>0</h3>
+
+<p>Bookings</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow text-center">
+
+<div class="card-body">
+
+<h3>0</h3>
+
+<p>Messages</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow text-center">
+
+<div class="card-body">
+
+<a
+href="{{ url_for('room.create_room') }}"
+class="btn btn-success">
+
+Add New Room
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row">
+
+{% for room in current_user.rooms %}
+
+<div class="col-md-4 mb-4">
+
+<div class="card shadow">
+
+{% if room.images %}
+
+<img
+src="{{ url_for('static', filename='uploads/room_images/' + room.images[0].filename) }}"
+class="card-img-top"
+style="height:220px;object-fit:cover;">
+
+{% endif %}
+
+<div class="card-body">
+
+<h4>{{ room.title }}</h4>
+
+<p>₹{{ room.rent }}</p>
+
+<p>{{ room.city }}</p>
+
+<a
+href="{{ url_for('room.edit_room', room_id=room.id) }}"
+class="btn btn-warning">
+
+Edit
+
+</a>
+
+<a
+href="{{ url_for('room.room_detail', room_id=room.id) }}"
+class="btn btn-primary">
+
+View
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<!-- ================= ADMIN ================= -->
+
+{% elif current_user.role == "admin" %}
+
+<div class="mb-4">
+
+<h2>
+
+Admin Dashboard
+
+</h2>
+
+<p>
+
+Welcome,
+{{ current_user.fullname }}
+
+</p>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="card shadow text-center">
+
+<div class="card-body">
+
+<h3>{{ rooms|length }}</h3>
+
+<p>Total Rooms</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow text-center">
+
+<div class="card-body">
+
+<h3>0</h3>
+
+<p>Total Users</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow text-center">
+
+<div class="card-body">
+
+<h3>0</h3>
+
+<p>Owners</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow text-center">
+
+<div class="card-body">
+
+<h3>0</h3>
+
+<p>Students</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endif %}
 
 {% endblock %}
