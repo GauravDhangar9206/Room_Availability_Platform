@@ -13,7 +13,6 @@ auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 @auth_bp.route("/signup", methods=["GET", "POST"])
 def signup():
 
-    # If user is already logged in
     if current_user.is_authenticated:
         return redirect(url_for("home.index"))
 
@@ -26,34 +25,28 @@ def signup():
         confirm_password = request.form.get("confirm_password")
         role = request.form.get("role")
 
-        # Check required fields
         if not fullname or not email or not password or not role:
             flash("Please fill all required fields.", "danger")
             return redirect(url_for("auth.signup"))
 
-        # Validate role
         if role not in ["student", "owner"]:
             flash("Invalid role selected.", "danger")
             return redirect(url_for("auth.signup"))
 
-        # Check password confirmation
         if password != confirm_password:
             flash("Passwords do not match!", "danger")
             return redirect(url_for("auth.signup"))
 
-        # Password length
         if len(password) < 8:
             flash("Password must be at least 8 characters long.", "danger")
             return redirect(url_for("auth.signup"))
 
-        # Check if email already exists
         existing_user = User.query.filter_by(email=email).first()
 
         if existing_user:
             flash("Email already exists!", "danger")
             return redirect(url_for("auth.signup"))
 
-        # Create user
         user = User(
             fullname=fullname,
             email=email,
@@ -83,7 +76,6 @@ def signup():
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
 
-    # Already logged in
     if current_user.is_authenticated:
         return redirect(url_for("home.index"))
 
@@ -92,17 +84,25 @@ def login():
         email = request.form.get("email").strip().lower()
         password = request.form.get("password")
 
-        # Find user
         user = User.query.filter_by(email=email).first()
 
-        # Verify credentials
         if user and user.check_password(password):
 
             login_user(user)
 
             flash("Login Successful!", "success")
 
-            return redirect(url_for("home.index"))
+            if user.role == "student":
+                return redirect(url_for("student.dashboard"))
+
+            elif user.role == "owner":
+                return redirect(url_for("owner.dashboard"))
+
+            elif user.role == "admin":
+                return redirect(url_for("admin.dashboard"))
+
+            else:
+                return redirect(url_for("home.index"))
 
         flash("Invalid email or password.", "danger")
 

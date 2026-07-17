@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}
+Student Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h2>Student Dashboard</h2>
+
+        </div>
+
+        <div class="card-body">
+
+            <h4>Welcome, {{ current_user.fullname }}</h4>
+
+            <p>
+                You are logged in as a
+                <strong>Student</strong>.
+            </p>
+
+            <hr>
+
+            <div class="row">
+
+                <div class="col-md-3 mb-3">
+
+                    <a href="{{ url_for('search.search') }}"
+                       class="btn btn-primary w-100">
+
+                        Search Rooms
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-3 mb-3">
+
+                    <a href="#"
+                       class="btn btn-success w-100">
+
+                        My Bookings
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-3 mb-3">
+
+                    <a href="#"
+                       class="btn btn-warning w-100">
+
+                        Favorites
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-3 mb-3">
+
+                    <a href="#"
+                       class="btn btn-info w-100">
+
+                        Messages
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

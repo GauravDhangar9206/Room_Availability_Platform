@@ -43,6 +43,40 @@ def create_room():
         db.session.add(room)
         db.session.commit()
 
+        # Receive uploaded images
+        images = request.files.getlist("images")
+
+        # Folder to save images
+        upload_folder = os.path.join(
+            "app",
+            "static",
+            "uploads",
+            "room_images"
+        )
+
+        # Create folder if it doesn't exist
+        os.makedirs(upload_folder, exist_ok=True)
+
+        # Save each image
+        for image in images:
+
+            if image and image.filename != "":
+
+                filename = secure_filename(image.filename)
+
+                image.save(
+                    os.path.join(upload_folder, filename)
+                )
+
+                room_image = Image(
+                    filename=filename,
+                    room=room
+                )
+
+                db.session.add(room_image)
+
+        db.session.commit()
+
         flash("Room Added Successfully!", "success")
 
         return redirect(url_for("home.index"))
