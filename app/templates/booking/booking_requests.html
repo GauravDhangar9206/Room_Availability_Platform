@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}
+Booking Requests
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4 text-center">
+
+        Booking Requests
+
+    </h2>
+
+    {% if bookings %}
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover shadow">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Student</th>
+                    <th>Room</th>
+                    <th>Booking Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for booking in bookings %}
+
+                <tr>
+
+                    <td>{{ booking.id }}</td>
+
+                    <td>
+
+                        {{ booking.student.fullname }}<br>
+                        <small>{{ booking.student.email }}</small>
+
+                    </td>
+
+                    <td>
+
+                        {{ booking.room.title }}<br>
+                        ₹{{ booking.room.rent }}
+
+                    </td>
+
+                    <td>
+
+                        {{ booking.booking_date.strftime('%d-%m-%Y %I:%M %p') }}
+
+                    </td>
+
+                    <td>
+
+                        {% if booking.status == "Pending" %}
+
+                            <span class="badge bg-warning text-dark">
+
+                                Pending
+
+                            </span>
+
+                        {% elif booking.status == "Approved" %}
+
+                            <span class="badge bg-success">
+
+                                Approved
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+
+                                Rejected
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {% if booking.status == "Pending" %}
+
+                        <a href="{{ url_for('booking.approve_booking', booking_id=booking.id) }}"
+                           class="btn btn-success btn-sm">
+
+                            Approve
+
+                        </a>
+
+                        <a href="{{ url_for('booking.reject_booking', booking_id=booking.id) }}"
+                           class="btn btn-danger btn-sm">
+
+                            Reject
+
+                        </a>
+
+                        {% else %}
+
+                        <span class="text-muted">
+
+                            No Action
+
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-info text-center">
+
+        No booking requests found.
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

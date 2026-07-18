@@ -51,22 +51,22 @@
         <div class="collapse navbar-collapse"
              id="navbarNav">
 
-            <!-- ================= LEFT MENU ================= -->
+            <!-- Left Menu -->
 
             <ul class="navbar-nav me-auto">
 
-                <!-- Home -->
-
                 <li class="nav-item">
-
-                    <a class="nav-link active"
-                       href="{{ url_for('home.index') }}">
-
+                    <a class="nav-link" href="{{ url_for('home.index') }}">
                         <i class="bi bi-house-fill"></i>
                         Home
-
                     </a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('search.search') }}">
+                        <i class="bi bi-search"></i>
+                        Search Rooms
+                    </a>
                 </li>
 
                 {% if current_user.is_authenticated %}
@@ -76,48 +76,25 @@
                     {% if current_user.role == "student" %}
 
                         <li class="nav-item">
-
                             <a class="nav-link"
-                               href="{{ url_for('search.search') }}">
-
-                                <i class="bi bi-search"></i>
-                                Search Rooms
-
-                            </a>
-
-                        </li>
-
-                        <li class="nav-item">
-
-                            <a class="nav-link" href="#">
-
-                                <i class="bi bi-heart-fill"></i>
-                                Favorites
-
-                            </a>
-
-                        </li>
-
-                        <li class="nav-item">
-
-                            <a class="nav-link" href="#">
-
+                               href="{{ url_for('booking.my_bookings') }}">
                                 <i class="bi bi-calendar-check"></i>
                                 My Bookings
-
                             </a>
-
                         </li>
 
                         <li class="nav-item">
-
                             <a class="nav-link" href="#">
+                                <i class="bi bi-heart-fill"></i>
+                                Favorites
+                            </a>
+                        </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
                                 <i class="bi bi-chat-dots"></i>
                                 Messages
-
                             </a>
-
                         </li>
 
                     <!-- ================= OWNER ================= -->
@@ -125,48 +102,35 @@
                     {% elif current_user.role == "owner" %}
 
                         <li class="nav-item">
-
                             <a class="nav-link"
                                href="{{ url_for('room.create_room') }}">
-
                                 <i class="bi bi-plus-circle"></i>
                                 Add Room
-
                             </a>
-
                         </li>
 
                         <li class="nav-item">
-
-                            <a class="nav-link" href="#">
-
+                            <a class="nav-link"
+                               href="{{url_for('room.my_rooms')}}">
                                 <i class="bi bi-building"></i>
                                 My Rooms
-
                             </a>
-
                         </li>
 
                         <li class="nav-item">
-
-                            <a class="nav-link" href="#">
-
+                            <a class="nav-link"
+                               href="{{ url_for('booking.owner_bookings') }}">
                                 <i class="bi bi-calendar-check"></i>
                                 Booking Requests
-
                             </a>
-
                         </li>
 
                         <li class="nav-item">
-
-                            <a class="nav-link" href="#">
-
+                            <a class="nav-link"
+                               href="#">
                                 <i class="bi bi-chat-dots"></i>
                                 Messages
-
                             </a>
-
                         </li>
 
                     <!-- ================= ADMIN ================= -->
@@ -174,126 +138,87 @@
                     {% elif current_user.role == "admin" %}
 
                         <li class="nav-item">
-
-                            <a class="nav-link" href="#">
-
+                            <a class="nav-link"
+                               href="#">
                                 <i class="bi bi-speedometer2"></i>
                                 Dashboard
-
                             </a>
-
                         </li>
 
                         <li class="nav-item">
-
-                            <a class="nav-link" href="#">
-
-                                <i class="bi bi-people"></i>
-                                Manage Users
-
+                            <a class="nav-link"
+                               href="#">
+                                <i class="bi bi-people-fill"></i>
+                                Users
                             </a>
-
                         </li>
 
                         <li class="nav-item">
-
-                            <a class="nav-link" href="#">
-
+                            <a class="nav-link"
+                               href="#">
                                 <i class="bi bi-building"></i>
-                                Manage Rooms
-
+                                Rooms
                             </a>
-
                         </li>
 
                         <li class="nav-item">
-
-                            <a class="nav-link" href="#">
-
-                                <i class="bi bi-bar-chart"></i>
-                                Reports
-
+                            <a class="nav-link"
+                               href="#">
+                                <i class="bi bi-calendar-check"></i>
+                                Bookings
                             </a>
-
                         </li>
 
                     {% endif %}
-
-                {% else %}
-
-                    <!-- Guest -->
-
-                    <li class="nav-item">
-
-                        <a class="nav-link"
-                           href="{{ url_for('search.search') }}">
-
-                            <i class="bi bi-search"></i>
-                            Search Rooms
-
-                        </a>
-
-                    </li>
 
                 {% endif %}
 
             </ul>
 
-            <!-- ================= RIGHT MENU ================= -->
+            <!-- Right Menu -->
 
             <ul class="navbar-nav">
 
                 {% if current_user.is_authenticated %}
 
                     <li class="nav-item">
-
                         <a class="nav-link" href="#">
-
                             <i class="bi bi-person-circle"></i>
 
                             {{ current_user.fullname }}
 
-                        </a>
+                            <span class="badge bg-warning text-dark">
 
+                                {{ current_user.role|title }}
+
+                            </span>
+
+                        </a>
                     </li>
 
                     <li class="nav-item">
-
                         <a class="nav-link"
                            href="{{ url_for('auth.logout') }}">
-
                             <i class="bi bi-box-arrow-right"></i>
-
                             Logout
-
                         </a>
-
                     </li>
 
                 {% else %}
 
                     <li class="nav-item">
-
                         <a class="nav-link"
                            href="{{ url_for('auth.login') }}">
-
                             <i class="bi bi-box-arrow-in-right"></i>
-
                             Login
-
                         </a>
-
                     </li>
 
                     <li class="nav-item">
-
                         <a class="btn btn-warning ms-2"
                            href="{{ url_for('auth.signup') }}">
-
                             Sign Up
-
                         </a>
-
                     </li>
 
                 {% endif %}
@@ -306,31 +231,24 @@
 
 </nav>
 
-<!-- ===================== FLASH ===================== -->
+<!-- ===================== FLASH MESSAGES ===================== -->
 
 <div class="container mt-3">
 
     {% with messages = get_flashed_messages(with_categories=true) %}
-
         {% if messages %}
-
-            {% for category, message in messages %}
-
+          {% for category, message in messages %}
                 <div class="alert alert-{{ category }} alert-dismissible fade show">
 
                     {{ message }}
 
-                    <button
-                        class="btn-close"
-                        data-bs-dismiss="alert">
-                    </button>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"></button>
 
                 </div>
-
             {% endfor %}
-
         {% endif %}
-
     {% endwith %}
 
 </div>
@@ -357,9 +275,7 @@
                 <h5>Room Availability Platform</h5>
 
                 <p>
-
-                    Find rooms, PGs, hostels and flats easily with secure booking.
-
+                    Find rooms, PGs, Hostels and Flats easily with secure booking.
                 </p>
 
             </div>
@@ -371,25 +287,17 @@
                 <ul class="list-unstyled">
 
                     <li>
-
                         <a class="text-white text-decoration-none"
                            href="{{ url_for('home.index') }}">
-
                             Home
-
                         </a>
-
                     </li>
 
                     <li>
-
                         <a class="text-white text-decoration-none"
                            href="{{ url_for('search.search') }}">
-
                             Search Rooms
-
                         </a>
-
                     </li>
 
                 </ul>
@@ -400,10 +308,8 @@
 
                 <h5>Contact</h5>
 
-                <p>Email : dhangargaurav2006@gmail.com</p>
-
-                <p>Phone : +91 9022648931</p>
-
+                <p>Email: dhangargaurav2006@gmail.com</p>
+                <p>Phone: +91 9022648931</p>
                 <p>Dhule, Maharashtra</p>
 
             </div>
@@ -427,5 +333,4 @@
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 </body>
-
 </html>

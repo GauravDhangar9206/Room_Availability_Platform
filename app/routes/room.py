@@ -145,3 +145,18 @@ def delete_room(room_id):
     flash("Room deleted successfully!", "success")
 
     return redirect(url_for("home.index"))
+
+@room_bp.route("/my-rooms")
+@login_required
+def my_rooms():
+
+    if current_user.role != "owner":
+        flash("Only room owners can access this page.", "danger")
+        return redirect(url_for("home.index"))
+
+    rooms = Room.query.filter_by(owner_id=current_user.id).all()
+
+    return render_template(
+        "room/my_rooms.html",
+        rooms=rooms
+    )
