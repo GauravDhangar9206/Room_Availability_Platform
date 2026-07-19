@@ -4,58 +4,93 @@
 {{ room.title }}
 {% endblock %}
 
+
 {% block content %}
 
 <div class="container py-5">
 
     <div class="row">
 
-        <!-- ================= ROOM IMAGE ================= -->
+
+        <!-- ================================= -->
+        <!-- ROOM IMAGES -->
+        <!-- ================================= -->
 
         <div class="col-lg-6 mb-4">
 
             {% if room.images and room.images|length > 0 %}
 
                 <img
-                    src="{{ url_for('static', filename='uploads/room_images/' + room.images[0].filename) }}"
+                    src="{{ url_for(
+                        'static',
+                        filename='uploads/room_images/' + room.images[0].filename
+                    ) }}"
                     class="img-fluid rounded shadow"
-                    style="width:100%; height:420px; object-fit:cover;">
+                    style="
+                        width:100%;
+                        height:420px;
+                        object-fit:cover;
+                    "
+                >
 
             {% else %}
 
                 <img
-                    src="{{ url_for('static', filename='images/no-image.jpg') }}"
+                    src="{{ url_for(
+                        'static',
+                        filename='images/no-image.jpg'
+                    ) }}"
                     class="img-fluid rounded shadow"
-                    style="width:100%; height:420px; object-fit:cover;">
+                    style="
+                        width:100%;
+                        height:420px;
+                        object-fit:cover;
+                    "
+                >
 
             {% endif %}
 
-            <!-- Multiple Images -->
 
-            {% if room.images|length > 1 %}
+            <!-- ================================= -->
+            <!-- MULTIPLE IMAGES -->
+            <!-- ================================= -->
 
-            <div class="row mt-3">
+            {% if room.images and room.images|length > 1 %}
 
-                {% for image in room.images %}
+                <div class="row mt-3">
 
-                <div class="col-3 mb-3">
+                    {% for image in room.images %}
 
-                    <img
-                        src="{{ url_for('static', filename='uploads/room_images/' + image.filename) }}"
-                        class="img-fluid rounded border"
-                        style="height:80px; width:100%; object-fit:cover;">
+                        <div class="col-3 mb-3">
+
+                            <img
+                                src="{{ url_for(
+                                    'static',
+                                    filename='uploads/room_images/' + image.filename
+                                ) }}"
+                                class="img-fluid rounded border"
+                                style="
+                                    height:80px;
+                                    width:100%;
+                                    object-fit:cover;
+                                "
+                            >
+
+                        </div>
+
+                    {% endfor %}
 
                 </div>
-
-                {% endfor %}
-
-            </div>
 
             {% endif %}
 
         </div>
 
-        <!-- ================= ROOM DETAILS ================= -->
+
+
+        <!-- ================================= -->
+        <!-- ROOM DETAILS -->
+        <!-- ================================= -->
 
         <div class="col-lg-6">
 
@@ -63,19 +98,34 @@
 
                 <div class="card-header bg-primary text-white">
 
-                    <h2>{{ room.title }}</h2>
+                    <h2 class="mb-0">
+
+                        {{ room.title }}
+
+                    </h2>
 
                 </div>
 
+
                 <div class="card-body">
+
+
+                    <!-- RENT -->
 
                     <h3 class="text-success mb-3">
 
                         ₹{{ room.rent }}
 
-                        <small class="text-muted fs-6">/ Month</small>
+                        <small class="text-muted fs-6">
+
+                            / Month
+
+                        </small>
 
                     </h3>
+
+
+                    <!-- DESCRIPTION -->
 
                     <p>
 
@@ -83,32 +133,72 @@
 
                     </p>
 
+
                     <hr>
+
+
+                    <!-- ROOM INFORMATION -->
 
                     <table class="table">
 
-                        <tr>
-                            <th>Room Type</th>
-                            <td>{{ room.room_type }}</td>
-                        </tr>
 
                         <tr>
-                            <th>Deposit</th>
-                            <td>₹{{ room.deposit }}</td>
+
+                            <th>
+                                Room Type
+                            </th>
+
+                            <td>
+                                {{ room.room_type }}
+                            </td>
+
                         </tr>
 
-                        <tr>
-                            <th>Bedrooms</th>
-                            <td>{{ room.bedrooms }}</td>
-                        </tr>
 
                         <tr>
-                            <th>Bathrooms</th>
-                            <td>{{ room.bathrooms }}</td>
+
+                            <th>
+                                Deposit
+                            </th>
+
+                            <td>
+                                ₹{{ room.deposit }}
+                            </td>
+
                         </tr>
 
+
                         <tr>
-                            <th>Furnished</th>
+
+                            <th>
+                                Bedrooms
+                            </th>
+
+                            <td>
+                                {{ room.bedrooms }}
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <th>
+                                Bathrooms
+                            </th>
+
+                            <td>
+                                {{ room.bathrooms }}
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <th>
+                                Furnished
+                            </th>
 
                             <td>
 
@@ -126,35 +216,84 @@
 
                         </tr>
 
-                        <tr>
-                            <th>City</th>
-                            <td>{{ room.city }}</td>
-                        </tr>
 
                         <tr>
-                            <th>Area</th>
-                            <td>{{ room.area }}</td>
+
+                            <th>
+                                City
+                            </th>
+
+                            <td>
+                                {{ room.city }}
+                            </td>
+
                         </tr>
 
-                        <tr>
-                            <th>Address</th>
-                            <td>{{ room.address }}</td>
-                        </tr>
 
                         <tr>
-                            <th>Pincode</th>
-                            <td>{{ room.pincode }}</td>
+
+                            <th>
+                                Area
+                            </th>
+
+                            <td>
+                                {{ room.area }}
+                            </td>
+
                         </tr>
 
-                        <tr>
-                            <th>Owner</th>
-                            <td>{{ room.owner.fullname }}</td>
-                        </tr>
 
                         <tr>
-                            <th>Phone</th>
-                            <td>{{ room.owner.phone }}</td>
+
+                            <th>
+                                Address
+                            </th>
+
+                            <td>
+                                {{ room.address }}
+                            </td>
+
                         </tr>
+
+
+                        <tr>
+
+                            <th>
+                                Pincode
+                            </th>
+
+                            <td>
+                                {{ room.pincode }}
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <th>
+                                Owner
+                            </th>
+
+                            <td>
+                                {{ room.owner.fullname }}
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <th>
+                                Phone
+                            </th>
+
+                            <td>
+                                {{ room.owner.phone }}
+                            </td>
+
+                        </tr>
+
 
                     </table>
 
@@ -166,12 +305,21 @@
 
     </div>
 
-    <!-- ================= ACTION BUTTONS ================= -->
+
+
+    <!-- ================================= -->
+    <!-- ACTION BUTTONS -->
+    <!-- ================================= -->
 
     <div class="mt-4 text-center">
 
-        <a href="{{ url_for('home.index') }}"
-           class="btn btn-secondary">
+
+        <!-- BACK -->
+
+        <a
+            href="{{ url_for('home.index') }}"
+            class="btn btn-secondary"
+        >
 
             <i class="bi bi-arrow-left"></i>
 
@@ -179,42 +327,92 @@
 
         </a>
 
+
+
         {% if current_user.is_authenticated %}
+
+
+            <!-- ================================= -->
+            <!-- STUDENT BUTTONS -->
+            <!-- ================================= -->
 
             {% if current_user.role == "student" %}
 
-               <a href="{{ url_for('booking.book_room', room_id=room.id) }}"
-   class="btn btn-success">
 
-    <i class="bi bi-calendar-check"></i>
-    Book Now
+                <!-- BOOK ROOM -->
 
-</a>
+                <a
+                    href="{{ url_for(
+                        'booking.book_room',
+                        room_id=room.id
+                    ) }}"
+                    class="btn btn-success"
+                >
 
-                <a href="#"
-                   class="btn btn-danger">
+                    <i class="bi bi-calendar-check"></i>
 
-                    <i class="bi bi-heart"></i>
-
-                    Add Favourite
+                    Book Now
 
                 </a>
 
-                <a href="#"
-                   class="btn btn-primary">
+
+
+                <!-- ADD FAVORITE -->
+
+                <a
+                    href="{{ url_for(
+                        'favorite.add_favorite',
+                        room_id=room.id
+                    ) }}"
+                    class="btn btn-danger"
+                >
+
+                    <i class="bi bi-heart-fill"></i>
+
+                    Add to Favorites
+
+                </a>
+
+
+
+                <!-- CHAT WITH OWNER -->
+
+                <a
+                    href="{{ url_for(
+                        'message.chat',
+                        room_id=room.id
+                    ) }}"
+                    class="btn btn-info text-white"
+                >
 
                     <i class="bi bi-chat-dots"></i>
 
-                    Contact Owner
+                    Chat with Owner
 
                 </a>
 
+
             {% endif %}
 
-            {% if current_user.role == "owner" and current_user.id == room.owner_id %}
 
-                <a href="{{ url_for('room.edit_room', room_id=room.id) }}"
-                   class="btn btn-warning">
+
+            <!-- ================================= -->
+            <!-- OWNER BUTTONS -->
+            <!-- ================================= -->
+
+            {% if current_user.role == "owner"
+                  and current_user.id == room.owner_id %}
+
+
+                <!-- EDIT ROOM -->
+
+                <a
+                    href="{{ url_for(
+                        'room.edit_room',
+                        room_id=room.id
+                    ) }}"
+                    class="btn btn-warning"
+                >
 
                     <i class="bi bi-pencil-square"></i>
 
@@ -222,15 +420,28 @@
 
                 </a>
 
+
+
+                <!-- DELETE ROOM -->
+
                 <form
-                    action="{{ url_for('room.delete_room', room_id=room.id) }}"
+                    action="{{ url_for(
+                        'room.delete_room',
+                        room_id=room.id
+                    ) }}"
                     method="POST"
-                    style="display:inline;">
+                    style="display:inline;"
+                >
 
                     <button
                         type="submit"
                         class="btn btn-danger"
-                        onclick="return confirm('Delete this room?')">
+                        onclick="
+                            return confirm(
+                                'Delete this room?'
+                            );
+                        "
+                    >
 
                         <i class="bi bi-trash"></i>
 
@@ -240,7 +451,9 @@
 
                 </form>
 
+
             {% endif %}
+
 
         {% endif %}
 

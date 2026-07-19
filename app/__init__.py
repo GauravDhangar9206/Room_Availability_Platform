@@ -7,6 +7,8 @@ from app.extensions import db, migrate, login_manager
 from app.models.user import User
 from app.models.room import Room
 from app.models.booking import Booking
+from app.models.favorite import Favorite
+from app.models.message import Message
 
 # Blueprints
 from app.routes.home import home_bp
@@ -14,6 +16,9 @@ from app.routes.auth import auth_bp
 from app.routes.room import room_bp
 from app.routes.search import search_bp
 from app.routes.booking import booking_bp
+from app.routes.favorite import favorite_bp
+from app.routes.message import message_bp
+
 
 
 def create_app():
@@ -37,6 +42,8 @@ def create_app():
     app.register_blueprint(room_bp)
     app.register_blueprint(search_bp)
     app.register_blueprint(booking_bp)
+    app.register_blueprint(favorite_bp)
+    app.register_blueprint(message_bp)
 
     # Flask Login User Loader
     @login_manager.user_loader
